@@ -1,0 +1,12 @@
+{
+  "name": "JURF",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "apicache": "0.0.12",
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
+    "mongojs": "^0.18.2",
+    "request": "^2.54.0"
+  }
+}
