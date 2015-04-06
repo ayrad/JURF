@@ -5,7 +5,7 @@ Don't hesitate on commenting & suggesting me fixes. I am newbie on this, so feel
 
 # Requirements to run the app
 * Node.js
-* MongoDB
+* MongoDB (find sample data for 'games' collection inside games.json file)
 * ~~Browser~~
 
 Make sure you configured everything on the ``config.json`` file (db_host, db_name, apikey, api url & static data url). Once you've done, just run this 2 commands to install dependencies and fire the app:
