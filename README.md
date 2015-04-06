@@ -14,11 +14,16 @@ Make sure you configured everything on the ``config.json`` file (db_host, db_nam
 
 ``npm start`` or ``node app.js``
 
-## Latest URF Games
-### Games list
+## Screenshots
+### Latest URF Games
+#### Games list
+![Latest Games List](http://37.187.100.95:13377/screenshots/latestgames-list.jpg)
 
+#### Game details
+![Latest Games Details](http://37.187.100.95:13377/screenshots/latestgames-detail.jpg)
 
-### Game details
+### Statistics
+![Stats](http://37.187.100.95:13377/screenshots/stats.jpg)
 
-
-## Statistics
+## Live Demo
+Live Demo can be found on my little server [http://37.187.100.95:13377/](http://37.187.100.95:13377/)
