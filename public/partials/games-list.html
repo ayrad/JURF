@@ -1,0 +1,24 @@
+<div id="lastgames">
+	<h1>Latest URF games</h1>
+	<div class="row clearfix" ng-repeat="game in games | orderBy:'-matchCreation'">
+		<div class="col-md-12">
+			<span class="label label-default" title="Created at"><i class="glyphicon glyphicon-calendar"></i> {{game.matchCreation | date:'dd/MM/yyyy HH:mm:ss'}}</span> <span class="label label-primary" title="Game duration"><i class="glyphicon glyphicon-time"></i> ~{{game.matchDuration / 60 | number:0}} minutes</span>
+		</div>
+		<div class="col-md-4">
+			<div style="position:relative; float:left;" ng-repeat="player in game.participants | orderBy:player.stats.winner | limitTo:5">
+				<img class="champ" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{player.champ.key}}.png" title="{{player.champ.name}}"/>
+				<span class="badge" style="position:absolute; top:0; left:0">{{player.stats.champLevel}}</span>
+			</div>
+		</div>
+		<div class="col-md-1"><h1>VS</h1></div>
+		<div class="col-md-4">
+			<div style="position:relative; float:left;" ng-repeat="player in game.participants | orderBy:player.stats.winner | limitTo:-5">
+				<img ng-show="player.champ" class="champ" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{player.champ.key}}.png" title="{{player.champ.name}}"/>
+				<span class="badge" style="position:absolute; top:0; left:0">{{player.stats.champLevel}}</span>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<a class="btn btn-info" href="#/game/{{game.matchId}}">Show details</a>
+		</div>
+	</div>
+</div>

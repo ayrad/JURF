@@ -1,0 +1,67 @@
+<h1>Match #{{game.matchId}} details</h1>
+<span class="label label-default"><i class="glyphicon glyphicon-calendar"></i> {{game.matchCreation | date:'dd/MM/yyyy HH:mm:ss'}}</span> <span class="label label-primary"><i class="glyphicon glyphicon-time"></i> ~{{game.matchDuration / 60 | number:0}} minutes</span>
+
+<!--{{game.matchCreation | date:'dd/MM/yyyy HH:mm:ss'}} - {{game.matchCreation + (game.matchDuration * 1000) | date:'HH:mm:ss'}}-->
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Champion</th>
+			<th>Spells</th>
+			<th>Lane</th>
+			<th>League</th>
+			<th>K/D/A</th>
+			<th>Farm</th>
+			<th>Gold</th>
+			<th>Items</th>
+			<th>Damages</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="player in game.participants" ng-class="{'alert-success' : player.winner, 'alert-danger': player.winner === false}">
+			<td>
+				<div style="position:relative;">
+					<img class="champ" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/champion/{{player.champ.key}}.png" title="{{player.champ.name}}"/>
+					<span class="badge" style="position:absolute; top:0; left:0">{{player.champLevel}}</span>
+				</div>
+			</td>
+			<td>
+				<img class="spell" ng-show="player.spells" ng-repeat="spell in player.spells" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/spell/{{spell.key}}.png" title="{{spell.name}}">
+			</td>
+			<td>
+				{{player.lane}}
+			</td>
+			<td>
+				<span class="label label-info">{{player.highestAchievedSeasonTier}}</span>
+			</td>
+			<td>
+				<span class="label label-success" title="Kills">{{player.kills}}</span> <span class="label label-danger" title="Deaths">{{player.deaths}}</span> <span class="label label-warning" title="Assists">{{player.assists}}</span><br/>
+				<!--Killing Sprees: {{player.killingSprees}}<br/>
+				Double Kills: {{player.doubleKills}}<br/>
+				Triple Kills: {{player.tripleKills}}<br/>
+				Quadra Kills: {{player.quadraKills}}<br/>
+				Penta Kills: {{player.pentaKills}}<br/>
+				Larget Multi Kill: {{player.largestMultiKill}}<br/>
+				Largest Killing Spree: {{player.largestKillingSpree}}<br/>-->
+			</td>
+			<td>
+				{{player.minionsKilled}}
+			</td>
+			<td>
+				<span class="label label-success" title="Earned"> {{player.goldEarned}}</span>
+				<span class="label label-danger" title="Spent"> {{player.goldSpent}}</span>
+				<span class="label label-warning" title="Saved"> {{(player.goldLeft > 3000 ) ? player.goldLeft + ' (cheapskate)' : player.goldLeft }}</span>
+			</td>
+			<td>
+				<img class="item" ng-show="player.item6 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item6}}.png">
+				<img class="item" ng-show="player.item0 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item0}}.png">
+				<img class="item" ng-show="player.item1 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item1}}.png">
+				<img class="item" ng-show="player.item2 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item2}}.png">
+				<img class="item" ng-show="player.item3 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item3}}.png">
+				<img class="item" ng-show="player.item4 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item4}}.png">
+				<img class="item" ng-show="player.item5 > 0" ng-src="http://ddragon.leagueoflegends.com/cdn/5.6.1/img/item/{{player.item5}}.png">
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
