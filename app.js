@@ -29,16 +29,9 @@ app.listen(config.port, function(){
 	console.log('[!] If API data is not correct, please edit config.json');
 });
 
-// Party starts here :)
-
-// Cronjobs
-// Retrieve URF Games info from Riot Games API & save it on local DB
-var gamescron = require('./cronjobs/game');
-gamescron.run();
-
 // Matches routes
 var matchesroutes = require('./routes/matches');
-app.get('/games/latest', apicache('5 minutes'), matchesroutes.latestgames);
+app.get('/games/latest', matchesroutes.latestgames);
 //app.get('/games', matchesroutes.allgames);
 app.get('/game/:id', apicache('1 day'), matchesroutes.gameById);
 app.get('/champ/:id', apicache('1 week'), matchesroutes.champById);
@@ -48,14 +41,10 @@ app.get('/spell/:id', apicache('1 week'), matchesroutes.spellById);
 var statsroutes = require('./routes/stats');
 app.get('/stats/games/short', statsroutes.shortgames);
 app.get('/stats/games/long', statsroutes.longgames);
-app.get('/stats/champs/mostplayed', statsroutes.longgames);
-app.get('/stats/champs/lessplayed', statsroutes.longgames);
+app.get('/stats/champs/mostplayed', statsroutes.mostplayedchamps);
+app.get('/stats/champs/lessplayed', statsroutes.lessplayedchamps);
 
-// Stats routes
-app.get('/stats/mostplayedchamps', function(req, res){
-	console.log('GET ' + req.url);
-	mongoose.model('games').find().limit(5).exec(function(err, participants){
-		if(!err) res.send(participants);
-		else console.log('ERROR: ' + err);
-	});
-});
+// Cronjobs
+// Retrieve URF Games info from Riot Games API & save it on local DB
+var gamescron = require('./cronjobs/game');
+gamescron.run();

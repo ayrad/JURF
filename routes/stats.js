@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 exports.shortgames = function(req, res){
 	console.log('GET ' + req.url);
-	mongoose.model('games').find().sort({'matchDuration':1}).limit(5).exec(function(err, games){
+	mongoose.model('games').find().sort({'matchDuration':1}).limit(7).exec(function(err, games){
 		if(!err) res.send(games);
 		else console.log('ERROR: ' + req.url + ' > ' + err);
 	});
@@ -13,8 +13,42 @@ exports.shortgames = function(req, res){
 
 exports.longgames = function(req, res){
 	console.log('GET ' + req.url);
-	mongoose.model('games').find().sort({'matchDuration':-1}).limit(5).exec(function(err, games){
+	mongoose.model('games').find().sort({'matchDuration':-1}).limit(7).exec(function(err, games){
 		if(!err) res.send(games);
+		else console.log('ERROR: ' + req.url + ' > ' + err);
+	});
+};
+
+exports.mostplayedchamps = function(req, res){
+	console.log('GET ' + req.url);
+
+	mongoose.model('games').aggregate([
+		{"$unwind": "$participants"},
+		{"$group": {
+				_id : "$participants.championId",
+				"times": {"$sum": 1}
+			}},
+		{$sort: {times: -1}},
+		{$limit: 7}
+	], function (err, result) {
+		if(!err) res.send(result);
+		else console.log('ERROR: ' + req.url + ' > ' + err);
+	});
+};
+
+exports.lessplayedchamps = function(req, res){
+	console.log('GET ' + req.url);
+
+	mongoose.model('games').aggregate([
+		{"$unwind": "$participants"},
+		{"$group": {
+				_id : "$participants.championId",
+				"times": {"$sum": 1}
+			}},
+		{$sort: {times: 1}},
+		{$limit: 7}
+	], function (err, result) {
+		if(!err) res.send(result);
 		else console.log('ERROR: ' + req.url + ' > ' + err);
 	});
 };

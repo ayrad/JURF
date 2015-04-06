@@ -51,32 +51,52 @@
 			 };*/
 			
 			$http.get('/stats/games/short').success(function(response){
-				$scope.shortMatchesData = [];
-				$scope.shortMatchesLabels = [];
-				response.forEach(function(match){
-					var durations = getMatchDurations(match);
+				$scope.shortGamesData = [];
+				$scope.shortGamesLabels = [];
+				response.forEach(function(game){
+					var durations = getGameDurations(game);
 					
-					$scope.shortMatchesData.push(durations.durationSec);
-					$scope.shortMatchesLabels.push(durations.durationMinSec);
+					$scope.shortGamesData.push(durations.durationSec);
+					$scope.shortGamesLabels.push(durations.durationMinSec);
 				});
 			});
 			
 			$http.get('/stats/games/long').success(function(response){
-				$scope.longMatchesData = [];
-				$scope.longMatchesLabels = [];
-				response.forEach(function(match){
-					var durations = getMatchDurations(match);
+				$scope.longGamesData = [];
+				$scope.longGamesLabels = [];
+				response.forEach(function(game){
+					var durations = getGameDurations(game);
 					
-					$scope.longMatchesData.push(durations.durationSec);
-					$scope.longMatchesLabels.push(durations.durationMinSec);
+					$scope.longGamesData.push(durations.durationSec);
+					$scope.longGamesLabels.push(durations.durationMinSec);
 				});
 			});
 			/*
 			$scope.champslabels = ["Sona", "Teemo", "Morgana"];
 			$scope.champsdata = [500, 300, 100];*/
 			
-			$http.get('/stats/mostplayedchamps').success(function(response){
-				console.log(response);
+			$http.get('/stats/champs/mostplayed').success(function(response){
+				$scope.mostPlayedChampsData = [];
+				$scope.mostPlayedChampsLabels = [];
+				
+				response.forEach(function(registry){
+					$http.get('/champ/' + registry._id).success(function(response){
+						$scope.mostPlayedChampsData.push(registry.times);
+						$scope.mostPlayedChampsLabels.push(response.name);
+					});
+				});
+			});
+			
+			$http.get('/stats/champs/lessplayed').success(function(response){
+				$scope.lessPlayedChampsData = [];
+				$scope.lessPlayedChampsLabels = [];
+				
+				response.forEach(function(registry){
+					$http.get('/champ/' + registry._id).success(function(response){
+						$scope.lessPlayedChampsData.push(registry.times);
+						$scope.lessPlayedChampsLabels.push(response.name);
+					});
+				});
 			});
 		}]);
 
@@ -123,12 +143,12 @@
 		return game;
 	};
 	
-	function getMatchDurations(match){
-		var minutes = Math.floor(match.matchDuration / 60);
-		var seconds = match.matchDuration % 60;
+	function getGameDurations(game){
+		var minutes = Math.floor(game.matchDuration / 60);
+		var seconds = game.matchDuration % 60;
 		var seconds = ('0'+seconds).slice(-2);
 		var durationMinSec = minutes + ':' + seconds;
 
-		return {durationMinSec:durationMinSec, durationSec:match.matchDuration};
+		return {durationMinSec:durationMinSec, durationSec:game.matchDuration};
 	};
 })();
