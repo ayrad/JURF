@@ -39,16 +39,17 @@
 		});
 	}]);
 
-	app.controller('StatsCtrl', ['$scope', '$http', function ($scope, $http) {
-			/*$scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-			 $scope.series = ['Series A', 'Series B'];
-			 $scope.data = [
-			 [65, 59, 80, 81, 56, 55, 40],
-			 [28, 48, 40, 19, 86, 27, 90]
-			 ];
-			 $scope.onClick = function (points, evt) {
-			 console.log(points, evt);
-			 };*/
+	app.controller('StatsCtrl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
+			var updateTotalGames = function(){
+				$http.get('/stats/games/count').success(function(response){
+					$scope.totalgames = response.count;
+				});
+			};
+			
+			updateTotalGames(); //Get total games at start, then update it every 30 seconds
+			$interval(function(){
+				updateTotalGames();
+			}, 30 * 1000);
 			
 			$http.get('/stats/games/short').success(function(response){
 				$scope.shortGamesData = [];
@@ -71,9 +72,6 @@
 					$scope.longGamesLabels.push(durations.durationMinSec);
 				});
 			});
-			/*
-			$scope.champslabels = ["Sona", "Teemo", "Morgana"];
-			$scope.champsdata = [500, 300, 100];*/
 			
 			$http.get('/stats/champs/mostplayed').success(function(response){
 				$scope.mostPlayedChampsData = [];
@@ -97,10 +95,6 @@
 						$scope.lessPlayedChampsLabels.push(response.name);
 					});
 				});
-			});
-			
-			$http.get('/stats/games/count').success(function(response){
-				$scope.totalgames = response.count;
 			});
 		}]);
 
