@@ -39,18 +39,11 @@
 		});
 	}]);
 
-	app.controller('StatsCtrl', ['$scope', '$http', '$interval', function ($scope, $http, $interval) {
-			var updateTotalGames = function(){
-				$http.get('/stats/games/count').success(function(response){
-					$scope.totalgames = response.count;
-				});
-			};
-			
-			updateTotalGames(); //Get total games at start, then update it every 30 seconds
-			$interval(function(){
-				updateTotalGames();
-			}, 30 * 1000);
-			
+	app.controller('StatsCtrl', ['$scope', '$http', function ($scope, $http) {
+			$http.get('/stats/games/count').success(function(response){
+				$scope.totalgames = response.count;
+			});
+	
 			$http.get('/stats/games/short').success(function(response){
 				$scope.shortGamesData = [];
 				$scope.shortGamesLabels = [];
