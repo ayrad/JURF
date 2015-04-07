@@ -41,6 +41,7 @@ app.get('/spell/:id', apicache('1 week'), matchesroutes.spellById);
 var statsroutes = require('./routes/stats');
 app.get('/stats/games/short', statsroutes.shortgames);
 app.get('/stats/games/long', statsroutes.longgames);
+app.get('/stats/games/count', statsroutes.gamescount);
 app.get('/stats/champs/mostplayed', statsroutes.mostplayedchamps);
 app.get('/stats/champs/lessplayed', statsroutes.lessplayedchamps);
 

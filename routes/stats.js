@@ -52,3 +52,12 @@ exports.lessplayedchamps = function(req, res){
 		else console.log('ERROR: ' + req.url + ' > ' + err);
 	});
 };
+
+exports.gamescount = function(req, res){
+	console.log('GET ' + req.url);
+	mongoose.model('games').count(function(err, result){
+		var count = {count:result};
+		if(!err) res.send(count);
+		else console.log('ERROR: ' + req.url + ' > ' + err);
+	});
+};

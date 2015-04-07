@@ -98,6 +98,10 @@
 					});
 				});
 			});
+			
+			$http.get('/stats/games/count').success(function(response){
+				$scope.totalgames = response.count;
+			});
 		}]);
 
 	// Auxilliary functions
