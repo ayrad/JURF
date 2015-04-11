@@ -39,11 +39,13 @@ app.get('/spell/:id', apicache('1 week'), apigames.spellById);
 
 // Stats routes
 var apistats = require('./server/api/stats');
-app.get('/stats/games/short', apistats.shortgames);
-app.get('/stats/games/long', apistats.longgames);
-app.get('/stats/games/count', apistats.gamescount);
-app.get('/stats/champs/mostplayed', apistats.mostplayedchamps);
-app.get('/stats/champs/lessplayed', apistats.lessplayedchamps);
+app.get('/stats/games/count', apistats.gamesCount);
+app.get('/stats/games/short', apistats.shortGames);
+app.get('/stats/games/long', apistats.longGames);
+app.get('/stats/champs/mostplayed', apistats.mostPlayedChamps);
+app.get('/stats/champs/lessplayed', apistats.lessPlayedChamps);
+app.get('/stats/champs/strong', apistats.strongChamps);
+app.get('/stats/champs/weak', apistats.weakChamps);
 
 // Cronjobs
 // Retrieve URF Games info from Riot Games API & save it on local DB

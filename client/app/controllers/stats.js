@@ -51,8 +51,43 @@
 				});
 			});
 		});
-	}]);
+		
+		var strongMagic = [];
+		var strongPhysical = [];
+		var strongTrue = [];
 
+		$scope.strongChampsLabels = [];
+		$scope.strongChampsData = [strongMagic, strongPhysical, strongTrue];
+		$scope.damagesSeries = ['Magic', 'Physical', 'True'];
+		
+		$http.get('/stats/champs/strong').success(function(response){
+			response.forEach(function(registry){
+				$http.get('/champ/' + registry.champ).success(function (response) {
+					$scope.strongChampsLabels.push(response.name + ' (' + registry.total/1000+ 'k)');
+					strongMagic.push(registry.magic);
+					strongPhysical.push(registry.physical);
+					strongTrue.push(registry.true);
+				});
+			});
+		});
+		
+		var weakMagic = [];
+		var weakPhysical = [];
+		var weakTrue = [];
+
+		$scope.weakChampsLabels = [];
+		$scope.weakChampsData = [weakMagic, weakPhysical, weakTrue];
+		$http.get('/stats/champs/weak').success(function(response){
+			response.forEach(function(registry){
+				$http.get('/champ/' + registry.champ).success(function (response) {
+					$scope.weakChampsLabels.push(response.name + ' (' + registry.total/1000+ 'k)');
+					weakMagic.push(registry.magic);
+					weakPhysical.push(registry.physical);
+					weakTrue.push(registry.true);
+				});
+			});
+		});
+	}]);
 
 	function getGameDurations(game) {
 		var minutes = Math.floor(game.matchDuration / 60);

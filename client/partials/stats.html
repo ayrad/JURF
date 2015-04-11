@@ -3,19 +3,6 @@
 	Stats based on <strong>more than <u>{{totalgames}}</u> random games</strong> data collected from URF's Riot Games API. This doesn't represent the 100% of played games, but may show real behavior.
 </div>
 
-<h2>Games</h2>
-<div class="row">
-	<div class="col-md-6">
-		<h4 class="textcenter">Shortest games (minutes:seconds)</h4>
-		<canvas class="chart chart-pie" data="shortGamesData" labels="shortGamesLabels" legend="true"></canvas>
-	</div>
-	<div class="col-md-6">
-		<h4 class="textcenter">Longest games (minutes:seconds)</h4>
-		<canvas class="chart chart-pie" data="longGamesData" labels="longGamesLabels" legend="true"></canvas>
-	</div>
-</div>
-
-
 <h2>Champions</h2>
 <div class="row">
 	<div class="col-md-6">
@@ -28,3 +15,26 @@
 	</div>
 </div>
 
+<h2>One Game Damages</h2>
+<div class="row">
+	<div class="col-md-6">
+		<h4 class="textcenter">Strong champions</h4>
+		<canvas class="chart chart-bar" data="strongChampsData" labels="strongChampsLabels" series="damagesSeries"></canvas>
+	</div>
+	<div class="col-md-6">
+		<h4 class="textcenter">Weak champions (<u>NO</u> AFK'ers)</h4>
+		<canvas class="chart chart-bar" data="weakChampsData" labels="weakChampsLabels" series="damagesSeries"></canvas>
+	</div>
+</div>
+
+<h2>Games Duration</h2>
+<div class="row">
+	<div class="col-md-6">
+		<h4 class="textcenter">Shortest games (minutes:seconds)</h4>
+		<canvas class="chart chart-pie" data="shortGamesData" labels="shortGamesLabels" legend="true"></canvas>
+	</div>
+	<div class="col-md-6">
+		<h4 class="textcenter">Longest games (minutes:seconds)</h4>
+		<canvas class="chart chart-pie" data="longGamesData" labels="longGamesLabels" legend="true"></canvas>
+	</div>
+</div>
