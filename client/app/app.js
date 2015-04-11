@@ -1,6 +1,8 @@
 (function () {
-	var app = angular.module('nurf', ['angular-loading-bar', 'ngAnimate', 'ngRoute', 'chart.js', 'nurfControllers']);
+	// Main module definition
+	var app = angular.module('urfApp', ['angular-loading-bar', 'ngAnimate', 'ngRoute', 'chart.js']);
 
+	// Routes
 	app.config(['$routeProvider', function ($routeProvider) {
 			$routeProvider.
 					when('/', {
@@ -11,7 +13,7 @@
 						templateUrl: 'partials/games-list.html',
 						controller: 'LatestGamesCtrl'
 					}).
-					when('/game/:gameId', {
+					when('/latestgames/:gameId', {
 						templateUrl: 'partials/game-details.html',
 						controller: 'GameDetailCtrl'
 					}).
@@ -23,10 +25,4 @@
 						redirectTo: '/'
 					});
 		}]);
-
-
-	$('body').on('click', '.navbar-nav li', function () {
-		$(this).parent().children('.active').removeClass('active');
-		$(this).addClass('active');
-	});
 })($);

@@ -14,12 +14,12 @@ mongoose.connect('mongodb://' + config.db_host + '/' + config.db_name, function(
 });
 
 // Load mongoose models
-fs.readdirSync(__dirname + '/models').forEach(function(filename){
-	if(~filename.indexOf('.js')) require(__dirname + '/models/' + filename);
+fs.readdirSync('./server/models').forEach(function(filename){
+	if(~filename.indexOf('.js')) require('./server/models/' + filename);
 });
 
 // HTTP listener
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('./client'));
 console.log('\rJURF (Riot Games API Challenge) by Mohammadi El Youzghi (MohiX)\r\r');
 app.listen(config.port, function(){
 	console.log('[+] Server running on port ' + config.port);
@@ -30,22 +30,22 @@ app.listen(config.port, function(){
 });
 
 // Matches routes
-var matchesroutes = require('./routes/matches');
-app.get('/games/latest', matchesroutes.latestgames);
-//app.get('/games', matchesroutes.allgames);
-app.get('/game/:id', apicache('1 day'), matchesroutes.gameById);
-app.get('/champ/:id', apicache('1 week'), matchesroutes.champById);
-app.get('/spell/:id', apicache('1 week'), matchesroutes.spellById);
+var apigames = require('./server/api/matches');
+app.get('/games/latest', apigames.latestgames);
+//app.get('/games', apigames.allgames);
+app.get('/game/:id', apicache('1 day'), apigames.gameById);
+app.get('/champ/:id', apicache('1 week'), apigames.champById);
+app.get('/spell/:id', apicache('1 week'), apigames.spellById);
 
 // Stats routes
-var statsroutes = require('./routes/stats');
-app.get('/stats/games/short', statsroutes.shortgames);
-app.get('/stats/games/long', statsroutes.longgames);
-app.get('/stats/games/count', statsroutes.gamescount);
-app.get('/stats/champs/mostplayed', statsroutes.mostplayedchamps);
-app.get('/stats/champs/lessplayed', statsroutes.lessplayedchamps);
+var apistats = require('./server/api/stats');
+app.get('/stats/games/short', apistats.shortgames);
+app.get('/stats/games/long', apistats.longgames);
+app.get('/stats/games/count', apistats.gamescount);
+app.get('/stats/champs/mostplayed', apistats.mostplayedchamps);
+app.get('/stats/champs/lessplayed', apistats.lessplayedchamps);
 
 // Cronjobs
 // Retrieve URF Games info from Riot Games API & save it on local DB
-var gamescron = require('./cronjobs/game');
+var gamescron = require('./server/cronjobs/game');
 gamescron.run();
