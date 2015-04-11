@@ -2,32 +2,12 @@
 	var app = angular.module('urfApp');
 	
 	app.controller('StatsCtrl', ['$scope', '$http', function ($scope, $http) {
+		// Total games
 		$http.get('/stats/games/count').success(function (response) {
 			$scope.totalgames = response.count;
 		});
 
-		$http.get('/stats/games/short').success(function (response) {
-			$scope.shortGamesData = [];
-			$scope.shortGamesLabels = [];
-			response.forEach(function (game) {
-				var durations = getGameDurations(game);
-
-				$scope.shortGamesData.push(durations.durationSec);
-				$scope.shortGamesLabels.push(durations.durationMinSec);
-			});
-		});
-
-		$http.get('/stats/games/long').success(function (response) {
-			$scope.longGamesData = [];
-			$scope.longGamesLabels = [];
-			response.forEach(function (game) {
-				var durations = getGameDurations(game);
-
-				$scope.longGamesData.push(durations.durationSec);
-				$scope.longGamesLabels.push(durations.durationMinSec);
-			});
-		});
-
+		// Champions
 		$http.get('/stats/champs/mostplayed').success(function (response) {
 			$scope.mostPlayedChampsData = [];
 			$scope.mostPlayedChampsLabels = [];
@@ -40,6 +20,7 @@
 			});
 		});
 
+		// Damages
 		$http.get('/stats/champs/lessplayed').success(function (response) {
 			$scope.lessPlayedChampsData = [];
 			$scope.lessPlayedChampsLabels = [];
@@ -85,6 +66,29 @@
 					weakPhysical.push(registry.physical);
 					weakTrue.push(registry.true);
 				});
+			});
+		});
+		
+		// Game Duration
+		$http.get('/stats/games/short').success(function (response) {
+			$scope.shortGamesData = [];
+			$scope.shortGamesLabels = [];
+			response.forEach(function (game) {
+				var durations = getGameDurations(game);
+
+				$scope.shortGamesData.push(durations.durationSec);
+				$scope.shortGamesLabels.push(durations.durationMinSec);
+			});
+		});
+
+		$http.get('/stats/games/long').success(function (response) {
+			$scope.longGamesData = [];
+			$scope.longGamesLabels = [];
+			response.forEach(function (game) {
+				var durations = getGameDurations(game);
+
+				$scope.longGamesData.push(durations.durationSec);
+				$scope.longGamesLabels.push(durations.durationMinSec);
 			});
 		});
 	}]);
