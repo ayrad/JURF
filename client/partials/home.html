@@ -8,7 +8,10 @@
 				<img src="assets/img/silver.png" alt="Silver" title="Second place">
 			</div>
 			<img class="podiumimg" ng-show="silver.champ" ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{silver.champ.key}}_0.jpg"/>
-			<img class="podiumimg" ng-hide="silver.champ" ng-src="assets/img/podium-placeholder.jpg" />
+			<div ng-hide="silver.champ">
+				<img class="podiumimg" src="assets/img/podium-placeholder.jpg" />
+				<img class="loader" src="assets/img/loader.gif"/>
+			</div>
 			<h4>{{silver.champ.name}}</h4>
 			<p>{{silver.champ.title}}</p>
 		</div>
@@ -17,7 +20,10 @@
 				<img src="assets/img/gold.png" alt="Gold" title="The king">
 			</div>
 			<img class="podiumimg" ng-show="king.champ" ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{king.champ.key}}_0.jpg"/>
-			<img class="podiumimg" ng-hide="king.champ" ng-src="assets/img/podium-placeholder.jpg" />
+			<div ng-hide="king.champ">
+				<img class="podiumimg" src="assets/img/podium-placeholder.jpg" />
+				<img class="loader" src="assets/img/loader.gif"/>
+			</div>
 			<h4>{{king.champ.name}}</h4>
 			<p>{{king.champ.title}}</p>
 		</div>
@@ -26,7 +32,10 @@
 				<img src="assets/img/bronze.png" alt="Bronze" title="Looser">
 			</div>
 			<img class="podiumimg" ng-show="bronze.champ" ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{bronze.champ.key}}_0.jpg"/>
-			<img class="podiumimg" ng-hide="bronze.champ" ng-src="assets/img/podium-placeholder.jpg" />
+			<div ng-hide="bronze.champ">
+				<img class="podiumimg"  src="assets/img/podium-placeholder.jpg" />
+				<img class="loader" src="assets/img/loader.gif"/>
+			</div>
 			<h4>{{bronze.champ.name}}</h4>
 			<p>{{bronze.champ.title}}</p>
 		</div>

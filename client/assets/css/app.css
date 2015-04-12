@@ -29,7 +29,12 @@ body {
 	margin-bottom: 0px;
 }
 img.podiumimg {
+	width: 192px;
 	height: 350px;
+}
+img.loader{
+	width: 60px;
+	height: 60px;
 }
 img.champ {
 	width: 64px;
