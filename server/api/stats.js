@@ -80,12 +80,18 @@ exports.strongChamps = function (req, res) {
 
 	mongoose.model('games').aggregate([
 		{"$unwind": "$participants"},
-		{$project: {
-				champ: "$participants.championId",
-				magic: "$participants.magicDamageDealt",
-				physical: "$participants.physicalDamageDealt",
-				true: "$participants.trueDamageDealt",
-				total: {$add: ["$participants.magicDamageDealt", "$participants.physicalDamageDealt", "$participants.trueDamageDealt"]}
+		{$group: {
+			_id: "$participants.championId",
+			magic: {"$avg": "$participants.magicDamageDealt"},
+			physical: {"$avg": "$participants.physicalDamageDealt"},
+			true: {"$avg": "$participants.trueDamageDealt"}
+		}},
+		{ $group: {
+			_id: "$_id",
+			magic: {$sum: "$magic"},
+			physical: {$sum:"$physical"},
+			true: {$sum:"$true"},
+			total : { $sum: { $add : ["$magic", "$physical", "$true"] }}
 		}},
 		{$sort: {total: -1}},
 		{$limit: 7}
@@ -102,15 +108,18 @@ exports.weakChamps = function (req, res) {
 	
 	mongoose.model('games').aggregate([
 		{"$unwind": "$participants"},
-		{$project: {
-				champ: "$participants.championId",
-				magic: "$participants.magicDamageDealt",
-				physical: "$participants.physicalDamageDealt",
-				true: "$participants.trueDamageDealt",
-				total: {$add: ["$participants.magicDamageDealt", "$participants.physicalDamageDealt", "$participants.trueDamageDealt"]}
+		{$group: {
+			_id: "$participants.championId",
+			magic: {"$avg": "$participants.magicDamageDealt"},
+			physical: {"$avg": "$participants.physicalDamageDealt"},
+			true: {"$avg": "$participants.trueDamageDealt"}
 		}},
-		{$match: {
-				total: {$gt: 0}
+		{ $group: {
+			_id: "$_id",
+			magic: {$sum: "$magic"},
+			physical: {$sum:"$physical"},
+			true: {$sum:"$true"},
+			total : { $sum: { $add : ["$magic", "$physical", "$true"] }}
 		}},
 		{$sort: {total: 1}},
 		{$limit: 7}

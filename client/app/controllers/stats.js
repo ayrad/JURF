@@ -43,8 +43,8 @@
 		
 		$http.get('/stats/champs/strong').success(function(response){
 			response.forEach(function(registry){
-				$http.get('/champ/' + registry.champ).success(function (response) {
-					$scope.strongChampsLabels.push(response.name + ' (' + registry.total/1000+ 'k)');
+				$http.get('/champ/' + registry._id).success(function (response) {
+					$scope.strongChampsLabels.push(response.name + ' (' + (registry.total/1000).toFixed(0) + 'k)');
 					strongMagic.push(registry.magic);
 					strongPhysical.push(registry.physical);
 					strongTrue.push(registry.true);
@@ -60,8 +60,8 @@
 		$scope.weakChampsData = [weakMagic, weakPhysical, weakTrue];
 		$http.get('/stats/champs/weak').success(function(response){
 			response.forEach(function(registry){
-				$http.get('/champ/' + registry.champ).success(function (response) {
-					$scope.weakChampsLabels.push(response.name + ' (' + registry.total/1000+ 'k)');
+				$http.get('/champ/' + registry._id).success(function (response) {
+					$scope.weakChampsLabels.push(response.name + ' (' + (registry.total/1000).toFixed(0) + 'k)');
 					weakMagic.push(registry.magic);
 					weakPhysical.push(registry.physical);
 					weakTrue.push(registry.true);
