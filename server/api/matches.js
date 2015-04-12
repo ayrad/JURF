@@ -21,32 +21,25 @@ exports.allgames = function(req, res){
 };
 
 exports.gameById = function(req, res){
+	console.log('GET ' + req.url);
 	mongoose.model('games').findOne({matchId: req.params.id}, function(err, game){
 		if(!err) res.send(game);
-		else console.log('ERROR: Could not retrieve game ' + req.params.id + ' data');
+		else console.log('ERROR: Could not retrieve game "' + req.params.id + '" data');
 	});
 };
 
 exports.champById = function(req, res){
-	var id = req.params.id;
 	console.log('GET ' + req.url);
-	var url = config.static + 'euw' + '/v1.2/champion/' + id + '?api_key=' + config.apikey;
-	console.log('GET EXTERNAL ' + url);
-	request(url, function (err, apires, body) {
-		if (!err && apires.statusCode === 200) {
-			res.json(JSON.parse(body));
-		}
+	mongoose.model('champions').findOne({_id: req.params.id}, function(err, champ){
+		if(!err) res.send(champ);
+		else console.log('ERROR: Could not retrieve champion "' + req.params.id + '" data');
 	});
 };
 
 exports.spellById = function(req, res){
-	var id = req.params.id;
 	console.log('GET ' + req.url);
-	var url = config.static + 'euw' + '/v1.2/summoner-spell/' + id + '?api_key=' + config.apikey;
-	console.log('GET EXTERNAL ' + url);
-	request(url, function (err, apires, body) {
-		if (!err && apires.statusCode === 200) {
-			res.json(JSON.parse(body));
-		}
+	mongoose.model('spells').findOne({_id: req.params.id}, function(err, spell){
+		if(!err) res.send(spell);
+		else console.log('ERROR: Could not retrieve spell "' + req.params.id + '" data');
 	});
 };
