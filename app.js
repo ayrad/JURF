@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 // Load config.json & connect to DB
 var config = JSON.parse(fs.readFileSync('./config.json'));
 mongoose.connect('mongodb://' + config.db_host + '/' + config.db_name, function(err){
-	if (err) console.log('[ERROR] Could not connect to the database: ' + err);
+	if (err) console.log('[ERROR] Could not connect to the database. Please run the MongoDB server (mongod) and restart the app. ' + err);
 });
 
 // Load mongoose models
