@@ -3,7 +3,7 @@
 var config = {
 	// Host & Port where to listen for HTTP requests
 	server: {
-		host: '127.0.0.1',
+		host: '127.0.0.1', //Notice that if you leave this by default, you will be able to access the app only from local machine.
 		port: '1337'
 	},
 	
