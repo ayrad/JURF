@@ -1,28 +1,36 @@
-# JURF
-[Riot Games API](https://developer.riotgames.com/) Challenge entry app. This is my first MEAN stack (Mongo, Express, Angular & Node.js) App and I hope not the last one, since I like these technologies and I really enjoy doing things with them :)
+# What's JURF?
+[Riot Games API](https://developer.riotgames.com/) Challenge entry app. JURF shows you the URF 2015 game mode latests games & stats in an understandable/user-friendly way.
+
+This is my first MEAN stack (MongoDB, Express.js, AngularJS & Node.js) App and I hope not the last one, since I like these technologies and I really enjoy doing things using them :)
 
 Don't hesitate on commenting & suggesting me fixes. I am newbie on this, so feel free to guide me.
 
-# Requirements to run the app
-* Node.js
-* MongoDB (find sample data for 'games' collection inside games.json file)
-* ~~Browser~~
-
-Make sure you configured everything on the ``config.json`` file (db_host, db_name, apikey, api url & static data url). Once you've done, just run this 2 commands to install dependencies and fire the app:
-
-``npm install``
-
-``npm start`` or ``node app.js``
+# How to install/run the app
+* Download & install Node.js: [https://nodejs.org/](https://nodejs.org/)
+* Download & install MongoDB: [https://www.mongodb.org/](https://www.mongodb.org/)
+* Download JURF app files: [https://github.com/ayrad/JURF/archive/master.zip](https://github.com/ayrad/JURF/archive/master.zip)
+* Run MongoDB server by executing the `mongod` command
+* Import the sample data JSON files to your Database
+    * `cd {dir_where_you_extracted_JURF_files}/sample_data`
+    * `mongoimport -d urf -c games games.json`
+    * `mongoimport -d urf -c champions champions.json`
+    * `mongoimport -d urf -c spells spells.json`
+* Install JURF app dependencies: `npm install`
+* Make sure you already configured server host + port inside `config.js` and the MongoDB server is running
+* Run the app: `npm start` or `node app.js`
+* Go to http://{host}:{port}/ (configured on `config.js`) and enjoy ;)
 
 ## Screenshots
-### Latest URF Games
-#### Games list
+### Home (The kings of URF)
+![URF Kings](http://37.187.100.95:13377/screenshots/kings-home.jpg)
+
+### Latest URF Games list
 ![Latest Games List](http://37.187.100.95:13377/screenshots/latestgames-list.jpg)
 
-#### Game details
+### Latests URF Games details
 ![Latest Games Details](http://37.187.100.95:13377/screenshots/latestgames-detail.jpg)
 
-### Statistics
+## Statistics
 ![Stats](http://37.187.100.95:13377/screenshots/stats.jpg)
 
 ## Live Demo
