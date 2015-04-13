@@ -1,7 +1,7 @@
 # What's JURF?
-[Riot Games API](https://developer.riotgames.com/) Challenge entry app. JURF shows you the URF 2015 game mode latests games & stats in an understandable/user-friendly way.
+[Riot Games API](https://developer.riotgames.com/) Challenge entry app. JURF shows you the URF 2015 game mode latest games & stats in an understandable/user-friendly way.
 
-This is my first MEAN stack (MongoDB, Express.js, AngularJS & Node.js) App and I hope not the last one, since I like these technologies and I really enjoy doing things using them :)
+This is my first MEAN stack (MongoDB, Express.js, AngularJS & Node.js) app and I hope not the last one, since I like these technologies and I really enjoy doing things using them :)
 
 Don't hesitate on commenting & suggesting me fixes. I am newbie on this, so feel free to guide me.
 
@@ -16,9 +16,9 @@ Don't hesitate on commenting & suggesting me fixes. I am newbie on this, so feel
     * `mongoimport -d urf -c champions champions.json`
     * `mongoimport -d urf -c spells spells.json`
 * Install JURF app dependencies: `npm install`
-* Make sure you already configured server host + port inside `config.js` and the MongoDB server is running
+* Make sure you already configured server `{host}` + `{port}` inside `config.js`
 * Run the app: `npm start` or `node app.js`
-* Go to http://{host}:{port}/ (configured on `config.js`) and enjoy ;)
+* Go to http://`{host}`:`{port}`/ and enjoy ;)
 
 ## Screenshots
 ### Home (The kings of URF)
