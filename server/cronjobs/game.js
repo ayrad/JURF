@@ -1,7 +1,6 @@
 var exports = module.exports = {};
 exports.run = function(){
-	var fs = require('fs');
-	var config = JSON.parse(fs.readFileSync('./config.json'));
+	var config = require('../../config');
 	var request = require('request');
 	var mongoose = require('mongoose');
 	var CronJob = require('cron').CronJob;
@@ -9,14 +8,14 @@ exports.run = function(){
 	new CronJob('* * * * * *', function () {
 		var epoch = getEpoch();
 		if (epoch != lastEpoch) {
-			var url = config.api + 'euw' + '/v4.1/game/ids?beginDate=' + epoch + '&api_key=' + config.apikey;
+			var url = config.api.baseUrl + 'euw' + '/v4.1/game/ids?beginDate=' + epoch + '&api_key=' + config.api.key;
 			console.log('GET EXTERNAL ' + url);
 
 			request(url, function (err, apires, body) {
 				if (!err && apires.statusCode === 200) {
 					var gamesIds = JSON.parse(body);
 					gamesIds.forEach(function (gameId) {
-						var url = config.api + 'euw' + '/v2.2/match/' + gameId + '?api_key=' + config.apikey;
+						var url = config.api.baseUrl + 'euw' + '/v2.2/match/' + gameId + '?api_key=' + config.api.key;
 						console.log('GET EXTERNAL ' + url);
 						request(url, function (err, apires, body) {
 							if (!err && apires.statusCode === 200) {

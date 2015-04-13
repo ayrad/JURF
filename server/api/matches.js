@@ -1,8 +1,5 @@
 var exports = module.exports = {};
-var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('./config.json'));
 var mongoose = require('mongoose');
-var request = require('request');
 
 exports.latestgames = function(req, res){
 	console.log('GET ' + req.url);

@@ -1,6 +1,4 @@
 var exports = module.exports = {};
-var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('./config.json'));
 var mongoose = require('mongoose');
 
 // Games

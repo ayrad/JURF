@@ -1,8 +1,0 @@
-{
-	"port": "1337",
-	"db_host": "localhost",
-	"db_name": "urf",
-	"apikey": "",
-	"api": "https://euw.api.pvp.net/api/lol/",
-	"static": "https://global.api.pvp.net/api/lol/static-data/"
-}

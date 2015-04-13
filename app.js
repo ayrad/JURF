@@ -7,10 +7,14 @@ var express = require('express'),
 		apicache = require('apicache').options({debug: true}).middleware;
 app.use(bodyParser.json());
 
-// Load config.json & connect to DB
-var config = JSON.parse(fs.readFileSync('./config.json'));
-mongoose.connect('mongodb://' + config.db_host + '/' + config.db_name, function(err){
-	if (err) console.log('[ERROR] Could not connect to the database. Please run the MongoDB server (mongod) and restart the app. ' + err);
+// Load config.js & connect to DB
+var config = require('./config');
+mongoose.connect('mongodb://' + config.database.username + ':' + config.database.password + '@' + config.database.host + ':' + config.database.port + '/' + config.database.name, function(err){
+	if (err){
+		console.log('\r\r[ERROR] Could not connect to the database "' + config.database.name + '"');
+		console.log('[!] Please check that the supplied config at "config.js" is correct & your MongoDB server is running');
+		console.log('[!] ' + err + '\r\r');
+	}
 });
 
 // Load mongoose models
@@ -21,12 +25,12 @@ fs.readdirSync('./server/models').forEach(function(filename){
 // HTTP listener
 app.use(express.static('./client'));
 console.log('\rJURF (Riot Games API Challenge) by Mohammadi El Youzghi (MohiX)\r\r');
-app.listen(config.port, function(){
-	console.log('[+] Server running on port ' + config.port);
-	console.log('[+] API URL: ' + config.api);
-	console.log('[+] API KEY: ' + config.apikey);
-	console.log('[+] STATIC DATA URL: ' + config.api);
-	console.log('[!] If API data is not correct, please edit config.json');
+app.listen(config.server.port, config.server.host, function(){
+	console.log('[+] Server running on ' + config.server.host + ':' + config.server.port);
+	console.log('[+] API KEY: ' + config.api.key);
+	console.log('[+] API URL: ' + config.api.baseUrl);
+	console.log('[+] STATIC DATA URL: ' + config.api.baseUrlStatic + '\r\r');
+	console.log('[!] If any data is not correct, please edit config.js');
 });
 
 // Matches routes
@@ -48,6 +52,8 @@ app.get('/stats/champs/strong', apicache('30 minutes'), apistats.strongChamps);
 app.get('/stats/champs/weak', apicache('30 minutes'), apistats.weakChamps);
 
 // Cronjobs
-// Retrieve URF Games info from Riot Games API & save it on local DB
-var gamescron = require('./server/cronjobs/game');
-gamescron.run();
+// Retrieve URF Games info from Riot Games API & save it on local DB (only if enabled on config.js)
+if (config.cron.running){
+	var gamescron = require('./server/cronjobs/game');
+	gamescron.run();
+}
