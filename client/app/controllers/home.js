@@ -7,7 +7,7 @@
 		});
 		
 		$http.get('/stats/champs/mostplayed').success(function (response) {
-			var kings = [];
+			$scope.kings = [];
 			
 			response = $filter('orderBy')(response, 'times');
 			response = $filter('limitTo')(response, '-3');
@@ -15,12 +15,12 @@
 			response.forEach(function (king, index) {
 				$http.get('/champ/' + king._id).success(function (response) {
 					king['champ'] = response;
-					kings.push(king);
+					$scope.kings.push(king);
 					
 					if (index === 2){
-						$scope.king = kings[2];
-						$scope.silver = kings[1];
-						$scope.bronze = kings[0];
+						$scope.king = $scope.kings[2];
+						$scope.silver = $scope.kings[1];
+						$scope.bronze = $scope.kings[0];
 					}
 				});
 			});
