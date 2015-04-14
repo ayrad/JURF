@@ -6,24 +6,33 @@
 			$scope.totalgames = response.count;
 		});
 		
-		$http.get('/stats/champs/mostplayed').success(function (response) {
-			$scope.kings = [];
-			
-			response = $filter('orderBy')(response, 'times');
-			response = $filter('limitTo')(response, '-3');
-			
-			response.forEach(function (king, index) {
-				$http.get('/champ/' + king._id).success(function (response) {
-					king['champ'] = response;
-					$scope.kings.push(king);
+		$scope.king = {};
+		$scope.silver = {};
+		$scope.bronze = {};
 					
-					if (index === 2){
-						$scope.king = $scope.kings[2];
-						$scope.silver = $scope.kings[1];
-						$scope.bronze = $scope.kings[0];
-					}
+		$http.get('/stats/champs/mostplayed')
+				.then(function (response) {
+					var kings = response.data;
+			
+					kings = $filter('orderBy')(kings, 'times');
+					kings = $filter('limitTo')(kings, '-3');
+					
+					return kings;
+				})
+				.then(function (kings) {
+					kings.forEach(function (king) {
+						$http.get('/champ/' + king._id).success(function (response) {
+							king['champ'] = response;
+						});
+					});
+					return kings;
+				})
+				.then(function (kings) {
+					$scope.king = kings[2];
+					$scope.silver = kings[1];
+					$scope.bronze = kings[0];
+
+					return true;
 				});
-			});
-		});
 	}]);
 })();
