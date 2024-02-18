@@ -22,16 +22,16 @@ Don't hesitate on commenting & suggesting me fixes. I am newbie on this, so feel
 
 ## Screenshots
 ### Home (The kings of URF)
-![URF Kings](http://37.187.100.95:13377/screenshots/kings-home.jpg)
+![URF Kings](https://github.com/melyouz/JURF/blob/780598b7fb531fae87b7311213a3af9257904c23/client/screenshots/kings-home.jpg)
 
 ### Latest URF Games list
-![Latest Games List](http://37.187.100.95:13377/screenshots/latestgames-list.jpg)
+![Latest Games List](https://github.com/melyouz/JURF/blob/780598b7fb531fae87b7311213a3af9257904c23/client/screenshots/latestgames-list.jpg)
 
 ### Latests URF Games details
-![Latest Games Details](http://37.187.100.95:13377/screenshots/latestgames-detail.jpg)
+![Latest Games Details](https://github.com/melyouz/JURF/blob/780598b7fb531fae87b7311213a3af9257904c23/client/screenshots/latestgames-detail.jpg)
 
 ## Statistics
-![Stats](http://37.187.100.95:13377/screenshots/stats.jpg)
+![Stats](https://github.com/melyouz/JURF/blob/780598b7fb531fae87b7311213a3af9257904c23/client/screenshots/stats.jpg)
 
 ## Live Demo
-Live Demo can be found on my little server [http://37.187.100.95:13377/](http://37.187.100.95:13377/)
+Live Demo can be found on my little server [http://37.187.100.95:13377/](http://37.187.100.95:13377/) **NO LONGER MAINTAINED**
